@@ -1,11 +1,5 @@
 "use client";
-import Image from "next/image";
-import { useEffect } from "react";
-
 export default function Home() {
-  // useEffect(() => {
-  // }, []);
-
   const handleLocationCallBack = (params: any) => {
     console.log("Login With DashenSuper App Clicked");
     alert("Recived location status " + params);
