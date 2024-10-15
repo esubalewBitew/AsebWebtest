@@ -16,12 +16,16 @@ export default function Home() {
     // (window as any).dashenbanksuperapp?.send(requestPermission);
   };
 
+  // Attach the callback handler to the window object
+  (window as any).CallbackHandler = handleLocationCallBack;
+
   const getLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation({ lat: latitude, lon: longitude });
+
           setError("");
         },
         (error) => {
@@ -64,6 +68,13 @@ export default function Home() {
         <h1 className="text-white text-xl font-bold" style={{ fontSize: 30 }}>
           {" "}
           XYZ Market
+        </h1>
+        <h1 className="text-white text-xl font-bold" style={{ fontSize: 30 }}>
+          {" "}
+          Location Gained ==={" "}
+          {location
+            ? "Latitude " + location.lat + "Longtitude " + location.lon
+            : ""}
         </h1>
         <button
           onClick={handlePermissionCallBack}
