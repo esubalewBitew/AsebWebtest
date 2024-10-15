@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [error, setError] = useState("");
   const [location, setLocation] = useState({ lat: 0.0, lon: 0.0 });
-  const handleLocationCallBack = (params: any) => {
+  const handleLocationCallBack = () => {
     console.log("Login With DashenSuper App Clicked");
-    getLocation();
+    // getLocation();
     alert("Recived location status Injected ");
     // let requestPermission = JSON.stringify({
     //   functionName: "requestPermissions",
