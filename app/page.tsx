@@ -6,7 +6,7 @@ export default function Home() {
   const handleLocationCallBack = (params: any) => {
     console.log("Login With DashenSuper App Clicked");
     getLocation();
-    alert("Recived location status Injected " + params);
+    alert("Recived location status Injected ");
     // let requestPermission = JSON.stringify({
     //   functionName: "requestPermissions",
     //   params: {
