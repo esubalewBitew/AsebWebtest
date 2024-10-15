@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export default function Home() {
   const [error, setError] = useState("");
   const [location, setLocation] = useState({ lat: 0.0, lon: 0.0 });
@@ -14,10 +14,14 @@ export default function Home() {
     //   },
     // });
     // (window as any).dashenbanksuperapp?.send(requestPermission);
+    //(window as any).CallbackHandler = handleLocationCallBack;
   };
 
-  // Attach the callback handler to the window object
-  (window as any).CallbackHandler = handleLocationCallBack;
+  //Attach the callback handler to the window object
+  // (window as any).CallbackHandler = handleLocationCallBack;
+  useEffect(() => {
+    (window as any).handleLocationCallBack = handleLocationCallBack;
+  }, []);
 
   const getLocation = () => {
     if (navigator.geolocation) {
