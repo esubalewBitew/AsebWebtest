@@ -1,16 +1,49 @@
 "use client";
+import { useState } from "react";
 export default function Home() {
+  const [error, setError] = useState("");
+  const [location, setLocation] = useState({ lat: 0.0, lon: 0.0 });
   const handleLocationCallBack = (params: any) => {
     console.log("Login With DashenSuper App Clicked");
-    alert("Recived location status " + params);
-    let requestPermission = JSON.stringify({
-      functionName: "requestPermissions",
-      params: {
-        permissions: ["Location"],
-        callbackName: { handleLocationCallBack },
-      },
-    });
-    (window as any).dashenbanksuperapp?.send(requestPermission);
+    alert("Recived location status Injected " + params);
+    // let requestPermission = JSON.stringify({
+    //   functionName: "requestPermissions",
+    //   params: {
+    //     permissions: ["Location"],
+    //     callbackName: { handleLocationCallBack },
+    //   },
+    // });
+    // (window as any).dashenbanksuperapp?.send(requestPermission);
+  };
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lon: longitude });
+          setError("");
+        },
+        (error) => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              setError("User denied the request for Geolocation.");
+              break;
+            case error.POSITION_UNAVAILABLE:
+              setError("Location information is unavailable.");
+              break;
+            case error.TIMEOUT:
+              setError("The request to get user location timed out.");
+              break;
+            default:
+              setError("An unknown error occurred.");
+              break;
+          }
+        }
+      );
+    } else {
+      setError("Geolocation is not supported by this browser.");
+    }
   };
 
   const handlePermissionCallBack = () => {
@@ -20,7 +53,7 @@ export default function Home() {
       functionName: "requestPermissions",
       params: {
         permissions: ["Location"],
-        callbackName: { handleLocationCallBack },
+        callbackName: "handleLocationCallBack",
       },
     });
     (window as any).dashenbanksuperapp?.send(requestPermission);
@@ -30,7 +63,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <h1 className="text-white text-xl font-bold" style={{ fontSize: 30 }}>
           {" "}
-          Aseb Market
+          XYZ Market
         </h1>
         <button
           onClick={handlePermissionCallBack}
